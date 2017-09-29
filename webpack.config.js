@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 
 var BUILD_DIR = path.resolve(__dirname, 'build');
@@ -12,10 +13,15 @@ var config = {
         path: BUILD_DIR,
         filename: './bundle.js',
     },
-    plugins: [new HtmlWebpackPlugin({
-        template: APP_DIR + '/index.template.ejs',
-        inject: 'body',
-    })],
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: APP_DIR + '/index.template.ejs',
+            inject: 'body',
+        }),
+        new UglifyJSPlugin({
+            compress: true
+        }),
+    ],
     module: {
         rules: [
             {
@@ -23,6 +29,12 @@ var config = {
                 use: [ 'style-loader', 'css-loader' ]
             }
         ]
+    },
+    resolve: {
+        "alias": {
+            "react": "preact-compat",
+            "react-dom": "preact-compat",
+        }
     }
 };
 
