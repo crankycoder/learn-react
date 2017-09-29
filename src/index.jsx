@@ -132,5 +132,5 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(React.createElement(Game, null), document.getElementById('root'));
+ReactDOM.render(React.createElement(Game, null), document.getElementById('app'));
 
