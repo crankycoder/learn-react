@@ -34,7 +34,9 @@ class WishlistItem extends React.Component {
                         'img',
                         {src: this.props.image,
                          width: '200',
-                         height: '200',},
+                         height: '200',
+                         onClick: () => alert(`click ${this.props.item_index}`),
+                        },
                         null,
                     )
                 ],
@@ -70,23 +72,29 @@ class Wishlist extends React.Component {
       // Copy, splice and set the new list if item is clicked
       const items = this.state.items.slice();
       items.splice(i, 1);
+      console.log("New item list: " + JSON.stringify(items));
       this.setState({items: items});
   }
 
+    renderItem(i) {
+        var items = this.state.items.slice();
+        var wish_item = items[i];
+        return React.createElement(WishlistItem,
+            {
+                description: wish_item.description,
+                price: wish_item.price,
+                url: wish_item.url,
+                image: wish_item.image,
+                item_index: i,
+            });
+    }
+
   render() {
-      const items = this.state.items.slice();
       var itemElements = [];
 
-      for (var index = 0; index < items.length; index++) {
-          var wish_item = items[index];
-          var elem = React.createElement(WishlistItem,
-              {
-                  description: wish_item.description,
-                  price: wish_item.price,
-                  url: wish_item.url,
-                  image: wish_item.image,
-              });
-          itemElements.push(elem);
+      for (var index in this.state.items) {
+          var item = this.renderItem(index);
+          itemElements.push(item);
       }
 
       return React.createElement(
