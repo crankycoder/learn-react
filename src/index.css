@@ -40,7 +40,7 @@ ol, ul {
   background: #ddd;
 }
 
-.game {
+.wishlist {
   display: flex;
   flex-direction: row;
 }

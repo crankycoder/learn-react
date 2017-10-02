@@ -2,28 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 require('./index.css');
 
-class Square extends React.Component {
-  render() {
-      return React.createElement(
-      'button',
-      { className: 'square',
-        onClick: () => this.props.onClick()
-      },
-      this.props.value
-    );
-  }
-}
-
-function calculateWinner(squares) {
-  const lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
 
 class Board extends React.Component {
   renderSquare(i) {
@@ -62,87 +40,97 @@ class Board extends React.Component {
   }
 }
 
-class Game extends React.Component {
+class WishlistItem extends React.Component {
+    constructor() {
+        super();
+    }
+
+    render() {
+        return React.createElement(
+            'li',
+            null,
+            React.createElement(
+                'div',
+                {className: 'wishlist-item'},
+                [
+                    React.createElement(
+                        'div',
+                        {className: 'item-description'},
+                        React.createElement(
+                            'a',
+                            {href: this.props.url},
+                            this.props.description,
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        {className: 'item-price'},
+                        this.props.price,
+                    ),
+                    React.createElement(
+                        'img',
+                        {src: this.props.image},
+                        null,
+                    )
+                ],
+            )
+        );
+    }
+}
+
+class Wishlist extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      history: [{
-        squares: Array(9).fill(null)
-      }],
-      xIsNext: true
+      items: [
+          {
+              description: "Vantrue N2 Dashcam",
+              price: "$200",
+              url: "https://www.amazon.ca/Vantrue-N2-Dual-Dash-Cam/dp/B01IHLKZ0I",
+              image: "https://images-na.ssl-images-amazon.com/images/I/617lYhsy%2BJL._AC_UL115_.jpg",
+          },
+      ],
     };
   }
 
   handleClick(i) {
-    const history = this.state.history;
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      // A winner is already found or this square is already
-      // filled.
-      return;
-    }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      history: history.concat([{
-        squares: squares
-      }]),
-      xIsNext: !this.state.xIsNext
-    });
+      // This is basically a delete operation
+      // Copy, splice and set the new list if item is clicked
+      const items = this.state.items.slice();
+      items.splice(i, 1);
+      this.setState({items: items});
   }
 
   render() {
-    const history = this.state.history;
-    const current = history[history.length - 1];
-    const winner = calculateWinner(current.squares);
+      const items = this.state.items.slice();
+      var itemElements = [];
 
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
+      for (var index = 0; index < items.length; index++) {
+          var wish_item = items[index];
+          var elem = React.createElement(WishlistItem,
+              {
+                  description: wish_item.description,
+                  price: wish_item.price,
+                  url: wish_item.url,
+                  image: wish_item.image,
+              });
+          itemElements.push(elem);
+      }
 
-    return React.createElement(
-        'div',
-        { className: 'game' },
-        React.createElement('ol', 
-            {className: 'some-list'},
-            [
-                React.createElement(
-                    'li',
-                    null,
-                    React.createElement(
-                        'div',
-                        {className: 'wishlist-item'},
-                        [
-                            React.createElement(
-                                'div',
-                                {className: 'item-description'},
-                                "Vantrue N2 Dashcam",
-                            ),
-                            React.createElement(
-                                'div',
-                                {className: 'item-price'},
-                                "$200.00",
-                            ),
-                            React.createElement(
-                                'img',
-                                {src:"https://images-na.ssl-images-amazon.com/images/I/617lYhsy%2BJL._AC_UL115_.jpg"},
-                                null,
-                            )
-                        ],
-                    )
-                ),
-            ]
-        )
-    );
+      return React.createElement(
+          'div',
+          { className: 'wishlist' },
+          React.createElement('ol', 
+              {className: 'some-list'},
+              itemElements,
+          )
+      );
   }
 
 }
 
 // ========================================
 
-ReactDOM.render(React.createElement(Game, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(Wishlist, null), document.getElementById('app'));
 
