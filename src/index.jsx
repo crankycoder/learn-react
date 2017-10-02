@@ -35,10 +35,17 @@ class WishlistItem extends React.Component {
                         {src: this.props.image,
                          width: '200',
                          height: '200',
-                         onClick: () => alert(`click ${this.props.item_index}`),
                         },
                         null,
-                    )
+                    ),
+                    React.createElement(
+                        'div',
+                        {
+                         onClick: () => alert(`click ${this.props.item_index}`),
+                        },
+                        "X",
+                    ),
+
                 ],
             )
         );
