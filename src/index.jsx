@@ -4,7 +4,7 @@ require('./index.css');
 
 class Square extends React.Component {
   render() {
-    return React.createElement(
+      return React.createElement(
       'button',
       { className: 'square',
         onClick: () => this.props.onClick()
@@ -105,26 +105,38 @@ class Game extends React.Component {
     }
 
     return React.createElement(
-      'div',
-      { className: 'game' },
-      React.createElement(
         'div',
-        { className: 'game-board' },
-        React.createElement(Board, {
-          squares: current.squares,
-          onClick: i => this.handleClick(i)
-        })
-      ),
-      React.createElement(
-        'div',
-        { className: 'game-info' },
-        React.createElement(
-          'div',
-          null,
-          status
-        ),
-        React.createElement('ol', null)
-      )
+        { className: 'game' },
+        React.createElement('ol', 
+            {className: 'some-list'},
+            [
+                React.createElement(
+                    'li',
+                    null,
+                    React.createElement(
+                        'div',
+                        {className: 'wishlist-item'},
+                        [
+                            React.createElement(
+                                'div',
+                                {className: 'item-description'},
+                                "Vantrue N2 Dashcam",
+                            ),
+                            React.createElement(
+                                'div',
+                                {className: 'item-price'},
+                                "$200.00",
+                            ),
+                            React.createElement(
+                                'img',
+                                {src:"https://images-na.ssl-images-amazon.com/images/I/617lYhsy%2BJL._AC_UL115_.jpg"},
+                                null,
+                            )
+                        ],
+                    )
+                ),
+            ]
+        )
     );
   }
 
