@@ -69,7 +69,9 @@ class WishlistItem extends React.Component {
                     ),
                     React.createElement(
                         'img',
-                        {src: this.props.image},
+                        {src: this.props.image,
+                         width: '200',
+                         height: '200',},
                         null,
                     )
                 ],
@@ -89,6 +91,12 @@ class Wishlist extends React.Component {
               price: "$200",
               url: "https://www.amazon.ca/Vantrue-N2-Dual-Dash-Cam/dp/B01IHLKZ0I",
               image: "https://images-na.ssl-images-amazon.com/images/I/617lYhsy%2BJL._AC_UL115_.jpg",
+          },
+          {
+              description: "NETGEAR Orbi Home WiFi System: AC3000 Tri Band Home Network with Router & Satellite Extender for up to 5000sqft of WiFi coverage (RBK50-100CNS)",
+              price: "$549.80",
+              url: "https://www.amazon.ca/NETGEAR-High-Performance-AC3000-Tri-Band-RBK50-100CNS/dp/B01LY964U3",
+              image: "https://images-na.ssl-images-amazon.com/images/I/51MrEm%2BeFfL._SL1350_.jpg",
           },
       ],
     };
