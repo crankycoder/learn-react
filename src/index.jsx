@@ -27,6 +27,14 @@ class WishlistItem extends React.Component {
                 [
                     React.createElement(
                         'div',
+                        {
+                            className: 'delete_button',
+                            onClick: () => this.props.handleClick(this.props.wishlist, this.props.item_index),
+                        },
+                        "X",
+                    ),
+                    React.createElement(
+                        'p',
                         {className: 'item-description'},
                         React.createElement(
                             'a',
@@ -35,7 +43,7 @@ class WishlistItem extends React.Component {
                         )
                     ),
                     React.createElement(
-                        'div',
+                        'p',
                         {className: 'item-price'},
                         this.props.price,
                     ),
@@ -46,13 +54,6 @@ class WishlistItem extends React.Component {
                             height: '200',
                         },
                         null,
-                    ),
-                    React.createElement(
-                        'div',
-                        {
-                            onClick: () => this.props.handleClick(this.props.wishlist, this.props.item_index),
-                        },
-                        "X",
                     ),
 
                 ],
@@ -81,6 +82,8 @@ class Wishlist extends React.Component {
                 },
             ],
         };
+
+        // TODO: register listeners here
     }
 
 
@@ -110,7 +113,7 @@ class Wishlist extends React.Component {
         return React.createElement(
             'div',
             { className: 'wishlist' },
-            React.createElement('ol', 
+            React.createElement('ul', 
                 {className: 'some-list'},
                 itemElements,
             )
