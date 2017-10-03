@@ -26,21 +26,21 @@ class WishlistItem extends React.Component {
                 {className: 'wishlist-item'},
                 [
                     React.createElement(
-                        'div',
-                        {
-                            className: 'delete_button',
-                            onClick: () => this.props.handleClick(this.props.wishlist, this.props.item_index),
-                        },
-                        "X",
-                    ),
-                    React.createElement(
-                        'p',
+                        'h3',
                         {className: 'item-description'},
                         React.createElement(
                             'a',
                             {href: this.props.url},
                             this.props.description,
                         )
+                    ),
+                    React.createElement(
+                        'div',
+                        {
+                            className: 'delete_button',
+                            onClick: () => this.props.handleClick(this.props.wishlist, this.props.item_index),
+                        },
+                        "X",
                     ),
                     React.createElement(
                         'p',
