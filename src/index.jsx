@@ -3,6 +3,15 @@ import ReactDOM from 'react-dom';
 require('./index.css');
 
 
+function handleClick(wishlist, index) {
+  // This is basically a delete operation
+  // Copy, splice and set the new list if item is clicked
+  const items = wishlist.state.items.slice();
+  items.splice(index, 1);
+  wishlist.setState({items: items});
+}
+
+
 class WishlistItem extends React.Component {
     constructor() {
         super();
@@ -41,7 +50,7 @@ class WishlistItem extends React.Component {
                     React.createElement(
                         'div',
                         {
-                         onClick: () => alert(`click ${this.props.item_index}`),
+                         onClick: () => this.props.handleClick(this.props.wishlist, this.props.item_index),
                         },
                         "X",
                     ),
@@ -74,14 +83,6 @@ class Wishlist extends React.Component {
     };
   }
 
-  handleClick(i) {
-      // This is basically a delete operation
-      // Copy, splice and set the new list if item is clicked
-      const items = this.state.items.slice();
-      items.splice(i, 1);
-      console.log("New item list: " + JSON.stringify(items));
-      this.setState({items: items});
-  }
 
     renderItem(i) {
         var items = this.state.items.slice();
@@ -93,6 +94,8 @@ class Wishlist extends React.Component {
                 url: wish_item.url,
                 image: wish_item.image,
                 item_index: i,
+                handleClick: handleClick,
+                wishlist: this,
             });
     }
 
